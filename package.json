@@ -1,0 +1,19 @@
+{
+  "name": "phina_esm_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "phina.js": "https://github.com/pentamania/phina.js/releases/download/esm-alpha.1/phina.esm-alpha.1.tgz"
+  }
+}
