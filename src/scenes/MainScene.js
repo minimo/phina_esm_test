@@ -1,13 +1,12 @@
-import { DisplayScene, TriangleShape } from "phina.js"
+import { DisplayScene, Sprite } from "phina.js/build/phina.esm";
 import { SpriteEx } from "../extensions/SpriteEx"
 
-/* scene定義 */
 export class MainScene extends DisplayScene {
   constructor() {
     super({
       backgroundColor: 'black',
     });
-    this.player = new TriangleShape()
+    this.player = new Sprite("tomapiyo", 64, 64)
       .addChildTo(this)
       .setPosition(this.width/2, this.height/2);
   }
