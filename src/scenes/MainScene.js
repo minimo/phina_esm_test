@@ -1,13 +1,14 @@
 import { DisplayScene, Sprite } from "phina.js/build/phina.esm";
-import { SpriteEx } from "../extensions/SpriteEx"
 
 export class MainScene extends DisplayScene {
-  constructor() {
-    super({
-      backgroundColor: 'black',
-    });
+  constructor(options) {
+    // options = $safe.call({}, options, { backgroundColor: 'black' });
+    options = options || {};
+    options.backgroundColor = 'black';
+    super(options);
     this.player = new Sprite("tomapiyo", 64, 64)
       .addChildTo(this)
+      .setFrameIndex(0)
       .setPosition(this.width/2, this.height/2);
   }
 

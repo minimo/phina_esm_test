@@ -1,4 +1,4 @@
-import { LoadingScene, ManagerScene, TitleScene } from "phina.js/build/phina.esm";
+import { LoadingScene, ManagerScene, DisplayScene, TitleScene } from "phina.js/build/phina.esm";
 import { AssetCatalog } from "../assets/AssetCatalog";
 import { MainScene } from "./MainScene";
 
@@ -9,10 +9,10 @@ export class SceneFlow extends ManagerScene {
       scenes: [{
         label: "loading",
         className: LoadingScene,
+        nextLabel: "title",
         arguments: {
           assets: AssetCatalog,
         },
-        nextLabel: "title",
       },{
         label: "title",
         className: TitleScene,
