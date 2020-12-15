@@ -1,4 +1,4 @@
-import { DisplayElement, Sprite } from "phina.js/build/phina.esm";
+import { DisplayElement, Sprite, Vector2 } from "phina.js/build/phina.esm";
 
 export class Player extends DisplayElement {
   constructor() {
@@ -9,6 +9,12 @@ export class Player extends DisplayElement {
 
     this.animationSeq = [1, 2, 3];
     this.animationSeqIndex = 0;
+
+    this.velocity = new Vector2(0, 0);
+    this.jumpPower = 10;
+
+    this.isDead = false;
+
     this.time = 0;
   }
 
@@ -19,6 +25,24 @@ export class Player extends DisplayElement {
       const idx = this.animationSeq[this.animationSeqIndex];
       this.sprite.setFrameIndex(idx);
     }
+
+    this.position.add(this.velocity);
+    this.velocity.y += 0.49;
+
+    if (this.y > 480) {
+      this.y = 480;
+      this.velocity.y = 0;
+      if (!this.isDead) {
+        this.flare("dead");
+        this.isDead = true;
+      }
+    }
+
     this.time++;
+  }
+
+  jump() {
+    if (this.velocity.y > 0) return;
+    this.velocity.y = -this.jumpPower;
   }
 }
