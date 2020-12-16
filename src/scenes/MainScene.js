@@ -8,7 +8,7 @@ export class MainScene extends DisplayScene {
     super(options);
 
     this.player = new Player()
-      .setPosition(this.width/2, this.height/2)
+      .setPosition(this.width/4, this.height/2)
       .addChildTo(this);
 
     this.player.on('dead', () => {

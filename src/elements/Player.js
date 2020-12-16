@@ -1,6 +1,7 @@
-import { DisplayElement, Sprite, Vector2 } from "phina.js/build/phina.esm";
+import { Sprite, Vector2 } from "phina.js/build/phina.esm";
+import { GameObject } from "./GameObject";
 
-export class Player extends DisplayElement {
+export class Player extends GameObject {
   constructor() {
     super();
     this.sprite = new Sprite("tomapiyo", 64, 64)
@@ -14,8 +15,6 @@ export class Player extends DisplayElement {
     this.jumpPower = 10;
 
     this.isDead = false;
-
-    this.time = 0;
   }
 
   update(app) {
@@ -42,7 +41,7 @@ export class Player extends DisplayElement {
   }
 
   jump() {
-    if (this.velocity.y > 0) return;
+    if (this.velocity.y < 3) return;
     this.velocity.y = -this.jumpPower;
   }
 }
