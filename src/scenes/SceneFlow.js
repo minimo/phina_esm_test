@@ -17,6 +17,9 @@ export class SceneFlow extends ManagerScene {
         label: "title",
         className: TitleScene,
         nextLabel: "main",
+        arguments: {
+          title: "PHINAPY BIRD!"
+        },
       },{
         label: "main",
         className: MainScene,
