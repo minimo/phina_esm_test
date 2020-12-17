@@ -14,7 +14,10 @@ export class Player extends GameObject {
     this.velocity = new Vector2(0, 0);
     this.jumpPower = 10;
 
+    this.isStart = false;
     this.isDead = false;
+
+    this.on('start', () => this.isStart = true);
   }
 
   update(app) {
@@ -24,6 +27,8 @@ export class Player extends GameObject {
       const idx = this.animationSeq[this.animationSeqIndex];
       this.sprite.setFrameIndex(idx);
     }
+
+    if (!this.isStart) return;
 
     this.position.add(this.velocity);
     this.velocity.y += 0.49;

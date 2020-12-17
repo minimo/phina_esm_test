@@ -24,3 +24,25 @@ export function $safe(source) {
   }, this);
   return this;
 }
+
+/**
+ * @method times
+ * 0 から自分自身の数-1まで、カウンタをインクリメントしながら関数を繰り返し実行します。
+ *
+ * ### Example
+ *     arr = [];
+ *     (5).times(function(i){
+ *       arr.push(i);
+ *     }); // => [0, 1, 2, 3, 4]
+ *
+ * @param {Function} fn コールバック関数
+ * @param {Object} [self=this] 関数内で this として参照される値。デフォルトは自分自身。
+ */
+export function times(fn, self) {
+  self = self || this;
+  for (var i=0; i<this; ++i) {
+    fn.call(self, i, this);
+  }
+  return this;
+}
+  
