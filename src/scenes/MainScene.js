@@ -1,6 +1,7 @@
-import { DisplayScene, Sprite } from "phina.js/build/phina.esm";
+import { DisplayElement, DisplayScene, Sprite } from "phina.js/build/phina.esm";
 import { CountDown } from "../elements/CountDown";
 import { Player } from "../elements/Player";
+import { Tube } from "../elements/Tube";
 import { $safe } from "../extensions/Utils";
 
 export class MainScene extends DisplayScene {
@@ -10,14 +11,18 @@ export class MainScene extends DisplayScene {
     super(options);
 
     this.isStart = false;
+    this.time = 0;
 
     //バックグラウンド
-    this.background = new Sprite("background").addChildTo(this).setOrigin(0, 0);
+    this.bg = new Sprite("background").addChildTo(this).setOrigin(0, 0);
+
+    this.background = new DisplayElement().addChildTo(this);
+    this.foreground = new DisplayElement().addChildTo(this);
 
     //プレイヤー
     this.player = new Player()
       .setPosition(this.width / 4, this.height / 2)
-      .addChildTo(this);
+      .addChildTo(this.foreground);
 
     this.player.on('dead', () => {
       this.gameover();
@@ -35,10 +40,20 @@ export class MainScene extends DisplayScene {
   }
 
   update(app) {
+    if (!this.isStart) return;
     if (app.pointer.getPointing()) {
       // this.player.setPosition(app.pointer.x, app.pointer.y)
       this.player.jump();
     }
+
+    if(this.time % 120) this.enterTube();
+
+    this.time++;
+  }
+
+  enterTube() {
+    const tube = new Tube();
+    tube.setPosition(this.width / 2, this.height / 2).addChildTo(this.background);
   }
 
   gameover() {
