@@ -36,8 +36,8 @@ export class Player extends GameObject {
     this.position.add(this.velocity);
     this.velocity.y += 0.49;
 
-    if (this.y > 480) {
-      this.y = 480;
+    if (this.y > 640) {
+      this.y = 640;
       this.velocity.y = 0;
       if (!this.isDead) {
         this.flare("dead");

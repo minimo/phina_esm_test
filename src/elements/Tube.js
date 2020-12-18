@@ -4,7 +4,7 @@ import { GameObject } from "./GameObject";
 
 export class Tube extends GameObject {
   constructor(options) {
-    options = $safe.call({}, options, { gap: 100 });
+    options = $safe.call({}, options, { gap: 200 });
     super(options);
     this.upper = new Sprite("tube1")
       .setOrigin(0.5, 1.0)

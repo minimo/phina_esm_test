@@ -11,6 +11,7 @@ export class MainScene extends DisplayScene {
     super(options);
 
     this.isStart = false;
+    this.tubes = [];
     this.time = 0;
 
     //バックグラウンド
@@ -46,14 +47,23 @@ export class MainScene extends DisplayScene {
       this.player.jump();
     }
 
-    if(this.time % 120) this.enterTube();
+    if(this.time % 120 == 0) this.enterTube();
+
+    this.tubes.forEach(tube => {
+      tube.x -= 3;
+      if (tube.x < -50) {
+        tube.remove();
+      }
+    });
+
 
     this.time++;
   }
 
   enterTube() {
     const tube = new Tube();
-    tube.setPosition(this.width / 2, this.height / 2).addChildTo(this.background);
+    tube.setPosition(this.width + 30, this.height / 2).addChildTo(this.background);
+    this.tubes.push(tube);
   }
 
   gameover() {
