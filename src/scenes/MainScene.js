@@ -54,6 +54,9 @@ export class MainScene extends DisplayScene {
       if (tube.x < -50) {
         tube.remove();
       }
+      if (tube.hitTestElement(this.player)) {
+        this.player.flare('dead');
+      }
     });
 
 
@@ -61,9 +64,14 @@ export class MainScene extends DisplayScene {
   }
 
   enterTube() {
-    const tube = new Tube();
-    tube.setPosition(this.width + 30, this.height / 2).addChildTo(this.background);
-    this.tubes.push(tube);
+    const gap = 300;
+    const offset = 0;
+    const tube1 = new Tube({ isBottom: false });
+    tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + offset).addChildTo(this.background);
+    const tube2 = new Tube({ isBottom: true });
+    tube2.setPosition(this.width + 30, this.height / 2 + tube2.height / 2 + gap / 2 + offset).addChildTo(this.background);
+    this.tubes.push(tube1);
+    this.tubes.push(tube2);
   }
 
   gameover() {

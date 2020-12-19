@@ -1,8 +1,10 @@
 import { Sprite, Vector2 } from "phina.js/build/phina.esm";
+import { $safe } from "../extensions/Utils";
 import { GameObject } from "./GameObject";
 
 export class Player extends GameObject {
   constructor(options) {
+    options = $safe.call({}, options, { width: 64, height: 64 });
     super(options);
     this.sprite = new Sprite("tomapiyo", 64, 64)
       .addChildTo(this)
