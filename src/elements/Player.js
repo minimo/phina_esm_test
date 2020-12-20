@@ -23,10 +23,15 @@ export class Player extends GameObject {
       this.isStart = true;
       this.jump(15);
     });
+
+    this.on('dead', () => {
+      this.off('dead');
+      this.isDead = true;
+    });
   }
 
   update(app) {
-    if (this.time % 5 == 0) {
+    if (!this.isDead && this.time % 5 == 0) {
       this.animationSeqIndex++;
       if (this.animationSeqIndex == this.animationSeq.length) this.animationSeqIndex = 0;
       const idx = this.animationSeq[this.animationSeqIndex];
@@ -35,16 +40,20 @@ export class Player extends GameObject {
 
     if (!this.isStart) return;
 
+    if (this.isDead) {
+      this.sprite.setFrameIndex(4);
+    } else if (app.pointer.getPointing()) {
+      this.jump();
+    }
+
     this.position.add(this.velocity);
     this.velocity.y += 0.49;
 
     if (this.y > 640) {
-      this.y = 640;
-      this.velocity.y = 0;
-      if (!this.isDead) {
-        this.flare("dead");
-        this.isDead = true;
-      }
+      this.flare("dead");
+    }
+    if (this.y > 800) {
+      this.flare("dead_end");
     }
 
     this.time++;

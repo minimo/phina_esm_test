@@ -1,4 +1,4 @@
-import { DisplayElement, DisplayScene, Sprite } from "phina.js/build/phina.esm";
+import { Collision, DisplayElement, DisplayScene, Sprite } from "phina.js/build/phina.esm";
 import { CountDown } from "../elements/CountDown";
 import { Player } from "../elements/Player";
 import { Tube } from "../elements/Tube";
@@ -11,6 +11,7 @@ export class MainScene extends DisplayScene {
     super(options);
 
     this.isStart = false;
+    this.isGameOver = false;
     this.tubes = [];
     this.time = 0;
 
@@ -25,7 +26,8 @@ export class MainScene extends DisplayScene {
       .setPosition(this.width / 4, this.height / 2)
       .addChildTo(this.foreground);
 
-    this.player.on('dead', () => {
+    this.player.on('dead_end', () => {
+      this.player.off('dead_end');
       this.gameover();
     });
 
@@ -42,10 +44,6 @@ export class MainScene extends DisplayScene {
 
   update(app) {
     if (!this.isStart) return;
-    if (app.pointer.getPointing()) {
-      // this.player.setPosition(app.pointer.x, app.pointer.y)
-      this.player.jump();
-    }
 
     if(this.time % 120 == 0) this.enterTube();
 
@@ -54,7 +52,7 @@ export class MainScene extends DisplayScene {
       if (tube.x < -50) {
         tube.remove();
       }
-      if (tube.hitTestElement(this.player)) {
+      if (Collision.testRectRect(this.player, tube)) {
         this.player.flare('dead');
       }
     });
@@ -75,6 +73,7 @@ export class MainScene extends DisplayScene {
   }
 
   gameover() {
+    this.isGameOver = true;
     console.log("game over");
   }
 }
