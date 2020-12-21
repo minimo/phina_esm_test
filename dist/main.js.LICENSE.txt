@@ -1,6 +1,0 @@
-/*!
- * phina.js v0.2.3
- * Released under the MIT license
- *
- * Copyright (C) phi
- */
