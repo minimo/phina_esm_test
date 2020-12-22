@@ -1,6 +1,7 @@
 import { Collision, DisplayElement, DisplayScene, Sprite } from "phina.js/build/phina.esm";
 import { CountDown } from "../elements/CountDown";
 import { Player } from "../elements/Player";
+import { Score } from "../elements/Score";
 import { Tube } from "../elements/Tube";
 import { $safe } from "../extensions/Utils";
 
@@ -26,10 +27,14 @@ export class MainScene extends DisplayScene {
       .setPosition(this.width / 4, this.height / 2)
       .addChildTo(this.foreground);
 
-    this.player.on('dead_end', () => {
-      this.player.off('dead_end');
+    this.player.one('dead_end', () => {
       this.gameover();
     });
+
+    //スコア表示
+    this.score = new Score()
+    .setPosition(this.width / 2, 60)
+    .addChildTo(this.foreground);
 
     //カウントダウン
     this.countDown = new CountDown()
@@ -48,15 +53,21 @@ export class MainScene extends DisplayScene {
     if(this.time % 120 == 0) this.enterTube();
 
     this.tubes.forEach(tube => {
-      tube.x -= 2;
-      if (tube.x < -50) {
-        tube.remove();
-      }
-      if (Collision.testRectRect(this.player, tube)) {
-        this.player.flare('dead');
+
+      if (!this.isGameOver) {
+        tube.x -= 2;
+        if (tube.point > 0 && tube.x < this.width / 4) {
+          this.score.add(tube.point);
+          tube.point = 0;
+        }
+        if (tube.x < -50) {
+          tube.remove();
+        }
+        if (Collision.testRectRect(this.player, tube)) {
+          this.player.flare('dead');
+        }
       }
     });
-
 
     this.time++;
   }
@@ -66,7 +77,7 @@ export class MainScene extends DisplayScene {
     const center = 0;
     const tube1 = new Tube({ isBottom: false });
     tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + center).addChildTo(this.background);
-    const tube2 = new Tube({ isBottom: true });
+    const tube2 = new Tube({ isBottom: true, point: 0 });
     tube2.setPosition(this.width + 30, this.height / 2 + tube2.height / 2 + gap / 2 + center).addChildTo(this.background);
     this.tubes.push(tube1);
     this.tubes.push(tube2);

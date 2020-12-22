@@ -8,8 +8,13 @@ export class Tube extends GameObject {
       width: 52,
       height: 320,
       isBottom: false,
+      point: 1,
     });
     super(options);
     this.sprite = new Sprite(`tube${options.isBottom ? "2" : "1"}`).addChildTo(this);
+    this._point = options.point;
   }
+
+  get point() { return this._point; }
+  set point(value) { this._point = value; }
 }
