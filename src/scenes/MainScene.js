@@ -48,7 +48,7 @@ export class MainScene extends DisplayScene {
     if(this.time % 120 == 0) this.enterTube();
 
     this.tubes.forEach(tube => {
-      tube.x -= 3;
+      tube.x -= 2;
       if (tube.x < -50) {
         tube.remove();
       }
@@ -62,12 +62,12 @@ export class MainScene extends DisplayScene {
   }
 
   enterTube() {
-    const gap = 300;
-    const offset = 0;
+    const gap = 200;
+    const center = 0;
     const tube1 = new Tube({ isBottom: false });
-    tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + offset).addChildTo(this.background);
+    tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + center).addChildTo(this.background);
     const tube2 = new Tube({ isBottom: true });
-    tube2.setPosition(this.width + 30, this.height / 2 + tube2.height / 2 + gap / 2 + offset).addChildTo(this.background);
+    tube2.setPosition(this.width + 30, this.height / 2 + tube2.height / 2 + gap / 2 + center).addChildTo(this.background);
     this.tubes.push(tube1);
     this.tubes.push(tube2);
   }

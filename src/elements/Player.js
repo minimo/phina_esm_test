@@ -1,14 +1,17 @@
-import { Sprite, Vector2 } from "phina.js/build/phina.esm";
+import { RectangleShape, Sprite, Vector2 } from "phina.js/build/phina.esm";
 import { $safe } from "../extensions/Utils";
 import { GameObject } from "./GameObject";
 
 export class Player extends GameObject {
   constructor(options) {
-    options = $safe.call({}, options, { width: 64, height: 64 });
+    options = $safe.call({}, options, { width: 32, height: 32 });
     super(options);
     this.sprite = new Sprite("tomapiyo", 64, 64)
       .addChildTo(this)
       .setFrameIndex(1);
+
+    this.collision = new RectangleShape({ width: 16, height: 16 }).addChildTo(this);
+    this.collision.alpha = 0.5;
 
     this.animationSeq = [1, 2, 3];
     this.animationSeqIndex = 0;

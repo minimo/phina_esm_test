@@ -1,4 +1,4 @@
-import { Sprite, Vector2 } from "phina.js/build/phina.esm";
+import { Sprite } from "phina.js/build/phina.esm";
 import { $safe } from "../extensions/Utils";
 import { GameObject } from "./GameObject";
 
@@ -11,10 +11,5 @@ export class Tube extends GameObject {
     });
     super(options);
     this.sprite = new Sprite(`tube${options.isBottom ? "2" : "1"}`).addChildTo(this);
-    if (options.isBottom) {
-      this.setOrigin(0.5, 0.0);
-    } else {
-      this.setOrigin(0.5, 1.0);
-    }
   }
 }
