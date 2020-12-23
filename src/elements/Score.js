@@ -13,7 +13,7 @@ export class Score extends GameObject {
       text: `${this._score}`,
       fill: 'white',
       stroke: 'black',
-      strokeWidth: 3,
+      strokeWidth: 4,
       fontSize: 64,
     }
     this.label = new Label(labelOptions).addChildTo(this);

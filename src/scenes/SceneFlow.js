@@ -1,5 +1,6 @@
-import { LoadingScene, ManagerScene, DisplayScene, TitleScene } from "phina.js/build/phina.esm";
+import { LoadingScene, ManagerScene } from "phina.js/build/phina.esm";
 import { AssetCatalog } from "../assets/AssetCatalog";
+import { GameTitleScene } from "./GameTitleScene";
 import { MainScene } from "./MainScene";
 
 export class SceneFlow extends ManagerScene {
@@ -15,7 +16,7 @@ export class SceneFlow extends ManagerScene {
         },
       },{
         label: "title",
-        className: TitleScene,
+        className: GameTitleScene,
         nextLabel: "main",
         arguments: {
           title: "PHINAPY BIRD!"

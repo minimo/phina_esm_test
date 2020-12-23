@@ -13,7 +13,7 @@ export class CountDown extends GameObject {
       text: `${this.count}`,
       fill: 'white',
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: 6,
       fontSize: 128,
     }
     this.label = new Label(labelOptions)

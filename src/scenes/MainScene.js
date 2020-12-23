@@ -1,4 +1,4 @@
-import { Collision, DisplayElement, DisplayScene, Sprite } from "phina.js/build/phina.esm";
+import { Collision, DisplayElement, DisplayScene, Label, Sprite } from "phina.js/build/phina.esm";
 import { CountDown } from "../elements/CountDown";
 import { Player } from "../elements/Player";
 import { Score } from "../elements/Score";
@@ -29,6 +29,7 @@ export class MainScene extends DisplayScene {
 
     this.player.one('dead_end', () => {
       this.gameover();
+      this.time = 0;
     });
 
     //スコア表示
@@ -50,11 +51,10 @@ export class MainScene extends DisplayScene {
   update(app) {
     if (!this.isStart) return;
 
-    if(this.time % 120 == 0) this.enterTube();
+    if (!this.isGameOver) {
+      if(this.time % 120 == 0) this.enterTube();
 
-    this.tubes.forEach(tube => {
-
-      if (!this.isGameOver) {
+      this.tubes.forEach(tube => {
         tube.x -= 2;
         if (tube.point > 0 && tube.x < this.width / 4) {
           this.score.add(tube.point);
@@ -66,8 +66,12 @@ export class MainScene extends DisplayScene {
         if (Collision.testRectRect(this.player, tube)) {
           this.player.flare('dead');
         }
+      });
+    } else {
+      if (this.time > 120 && app.pointer.getPointing()) {
+        this.exit();
       }
-    });
+    }
 
     this.time++;
   }
@@ -86,6 +90,17 @@ export class MainScene extends DisplayScene {
   gameover() {
     this.isGameOver = true;
     console.log("game over");
+
+    const labelOptions = {
+      text: "GAME OVER",
+      fill: 'white',
+      stroke: 'black',
+      strokeWidth: 6,
+      fontSize: 100,
+    }
+    this.gameoverLabel = new Label(labelOptions)
+      .setPosition(this.width / 2, this.height / 2)
+      .addChildTo(this.foreground);
   }
 }
 
