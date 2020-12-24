@@ -1,17 +1,64 @@
-import { TitleScene } from "phina.js/build/phina.esm";
+import { DisplayScene, Label } from "phina.js/build/phina.esm";
+import { $safe } from "../../../../phina.js/src/core/object";
 
-export class GameTitleScene extends TitleScene {
+export class GameTitleScene extends DisplayScene {
 
-  constructor(options) {
-    super(options);
-    this.off('pointend');
+  constructor(params) {
+    params = $safe.call({}, params, GameTitleScene.defaults);
+    super(params);
 
-    this.time = 0;
+    this.backgroundColor = params.backgroundColor;
+
+    this.fromJSON({
+      children: {
+        titleLabel: {
+          className: Label,
+          arguments: {
+            text: params.title,
+            fill: params.fontColor,
+            stroke: false,
+            fontSize: 64,
+          },
+          x: this.gridX.center(),
+          y: this.gridY.span(4),
+        }
+      }
+    });
+
+    if (params.exitType === 'touch') {
+      this.fromJSON({
+        children: {
+          touchLabel: {
+            className: Label,
+            arguments: {
+              text: "TOUCH START",
+              fill: params.fontColor,
+              stroke: false,
+              fontSize: 32,
+            },
+            x: this.gridX.center(),
+            y: this.gridY.span(12),
+          },
+        },
+      });
+    }
   }
 
   update(app) {
-    if (this.time > 60 && app.pointer.getPointing()) {
+    if (app.pointer.getPointingStart()) {
       this.exit();
     }
   }
+
 }
+
+GameTitleScene.defaults = {
+  title: 'phina.js games',
+  message: '',
+
+  fontColor: 'white',
+  backgroundColor: 'hsl(200, 80%, 64%)',
+  backgroundImage: '',
+
+  exitType: 'touch',
+};

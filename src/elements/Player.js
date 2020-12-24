@@ -45,7 +45,7 @@ export class Player extends GameObject {
 
     if (this.isDead) {
       this.sprite.setFrameIndex(4);
-    } else if (app.pointer.getPointing()) {
+    } else if (app.pointer.getPointingStart() || app.keyboard.getKey("space")) {
       this.jump();
     }
 

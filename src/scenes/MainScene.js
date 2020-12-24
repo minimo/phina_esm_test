@@ -68,7 +68,7 @@ export class MainScene extends DisplayScene {
         }
       });
     } else {
-      if (this.time > 120 && app.pointer.getPointing()) {
+      if (this.time > 120 && (app.pointer.getPointingStart() || app.keyboard.getKey("space"))) {
         this.exit();
       }
     }
