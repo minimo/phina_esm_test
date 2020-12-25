@@ -3,7 +3,7 @@ import { CountDown } from "../elements/CountDown";
 import { Player } from "../elements/Player";
 import { Score } from "../elements/Score";
 import { Tube } from "../elements/Tube";
-import { $safe } from "../extensions/Utils";
+import { $safe, randint } from "../extensions/Utils";
 
 export class MainScene extends DisplayScene {
 
@@ -77,8 +77,8 @@ export class MainScene extends DisplayScene {
   }
 
   enterTube() {
-    const gap = 200;
-    const center = 0;
+    const gap = randint(150, 300);
+    const center = randint(-100, 100);
     const tube1 = new Tube({ isBottom: false });
     tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + center).addChildTo(this.background);
     const tube2 = new Tube({ isBottom: true, point: 0 });
