@@ -45,4 +45,15 @@ export function times(fn, self) {
   }
   return this;
 }
-  
+
+/**
+ * @method randint
+ * 指定された範囲内でランダムな整数値を返します。
+ * 
+ * @param {Number} min 範囲の最小値
+ * @param {Number} max 範囲の最大値
+ * @return {Number} ランダムな整数値
+ */
+export function randint(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
