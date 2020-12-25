@@ -1,6 +1,6 @@
 {
   "name": "phina_esm_test",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "git-rev": "^0.2.1",
     "webpack": "^5.10.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0",

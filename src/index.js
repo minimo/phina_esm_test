@@ -1,6 +1,8 @@
 import { phina, CanvasApp, DisplayScene } from "phina.js/build/phina.esm";
 import { SceneFlow } from "/src/scenes/SceneFlow"
 
+console.log('Version: 0.0.1 (Date 2020-12-25, Commit #3392a31)');
+
 if (process.env.NODE_ENV !== 'production') {
   console.log('##### Development mode #####');
 }
