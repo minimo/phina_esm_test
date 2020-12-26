@@ -10,8 +10,8 @@ export class Player extends GameObject {
       .addChildTo(this)
       .setFrameIndex(1);
 
-    this.collision = new RectangleShape({ width: 16, height: 16 }).addChildTo(this);
-    this.collision.alpha = 0.5;
+    // this.collision = new RectangleShape({ width: 16, height: 16 }).addChildTo(this);
+    // this.collision.alpha = 0.5;
 
     this.animationSeq = [1, 2, 3];
     this.animationSeqIndex = 0;

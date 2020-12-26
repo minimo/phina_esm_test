@@ -77,8 +77,8 @@ export class MainScene extends DisplayScene {
   }
 
   enterTube() {
-    const gap = randint(150, 300);
-    const center = randint(-100, 100);
+    const gap = randint(80, 200);
+    const center = randint(-130, 130);
     const tube1 = new Tube({ isBottom: false });
     tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + center).addChildTo(this.background);
     const tube2 = new Tube({ isBottom: true, point: 0 });
@@ -89,7 +89,7 @@ export class MainScene extends DisplayScene {
 
   gameover() {
     this.isGameOver = true;
-    console.log("game over");
+    console.log("game over");      
 
     const labelOptions = {
       text: "GAME OVER",
@@ -101,6 +101,21 @@ export class MainScene extends DisplayScene {
     this.gameoverLabel = new Label(labelOptions)
       .setPosition(this.width / 2, this.height / 2)
       .addChildTo(this.foreground);
+    
+    this.gameoverLabel.tweener.clear()
+      .wait(2000)
+      .call(() => {
+        const labelOptions = {
+          text: "TOUCH SCREEN",
+          fill: 'white',
+          stroke: 'black',
+          strokeWidth: 6,
+          fontSize: 50,
+        }
+        new Label(labelOptions)
+          .setPosition(this.width / 2, this.height * 0.7)
+          .addChildTo(this.foreground);
+      });
   }
 }
 
