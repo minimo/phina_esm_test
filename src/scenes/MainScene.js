@@ -77,7 +77,7 @@ export class MainScene extends DisplayScene {
   }
 
   enterTube() {
-    const gap = randint(80, 200);
+    const gap = randint(90, 200);
     const center = randint(-130, 130);
     const tube1 = new Tube({ isBottom: false });
     tube1.setPosition(this.width + 30, this.height / 2 - tube1.height / 2 - gap / 2 + center).addChildTo(this.background);
